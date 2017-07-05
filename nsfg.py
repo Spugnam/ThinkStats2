@@ -163,3 +163,11 @@ def main():
 
 if __name__ == '__main__':
     main()
+#%%
+preg = ReadFemPreg()
+print(preg)   #13593 rows
+#%%
+preg.iloc[:5,:10]
+
+
+

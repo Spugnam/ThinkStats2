@@ -14,13 +14,45 @@ import nsfg
 import thinkstats2
 
 
+# Function that reads the file 2002FemResp.dat.gz
+def ReadFemResp(dct_file='2002FemResp.dct',
+                dat_file='2002FemResp.dat.gz',
+                nrows=None):
+    """Reads the NSFG respondent data.
+
+    dct_file: string file name
+    dat_file: string file name
+
+    returns: DataFrame
+    """
+    dct = thinkstats2.ReadStataDct(dct_file)
+    df = dct.ReadFixedWidth(dat_file, compression='gzip', nrows=nrows)
+    CleanFemResp(df)
+    return df
+
+
 def main(script):
     """Tests the functions in this module.
 
     script: string script name
     """
+    resp = ReadFemResp()
     print('%s: All tests passed.' % script)
+    
 
 
 if __name__ == '__main__':
     main(*sys.argv)
+#%%
+resp = ReadFemResp()
+print(resp)
+#%%
+print(resp['pregnum'].value_counts().sort_index())
+sum(resp['pregnum'].value_counts().sort_index())
+#%%
+(resp['pregnum'].value_counts().sort_index())[1]
+
+
+
+
+
